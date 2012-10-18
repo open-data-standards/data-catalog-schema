@@ -1,8 +1,8 @@
-# Data Catalog Schema and API
+# Data and API Catalog Schema
 
 The beginnings of [Socrata](http://www.socrata)'s proposed modifications to the proposed [DCAT](http://www.w3.org/TR/vocab-dcat/) and [Data Catalog Schema and Protocol](http://spec.datacatalogs.org/).
 
-Our proposal is heavily based on the work previously done by the W3C on the [DCAT](http://www.w3.org/TR/vocab-dcat/) standard and CKAN's proposed modifications to that standard in the [Data Catalog Schema and Protocol](http://spec.datacatalogs.org/).
+Our proposal is heavily based on the work previously done by the W3C on the [DCAT](http://www.w3.org/TR/vocab-dcat/) standard and CKAN's proposed modifications to that standard in the [Data Catalog Schema and Protocol](http://spec.datacatalogs.org/). It also incorporates some of [Data.gov's work on API catalogs](http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema).
 
 ## Files of note:
 

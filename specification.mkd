@@ -1,4 +1,4 @@
-# Data Catalog Schema and API
+# Data and API Catalog Schema
 
 ## Schema
 
@@ -24,3 +24,4 @@
 - [Vocab.org Gregorian Intervals](http://vocab.org/placetime/interval/gregorian/)
 - [CKAN Data Management System Documentation](http://docs.ckan.org/en/latest/domain-model-resource.html#resource-format-strings)
 - [CKAN Data Catalog Schema and Protocol v0.1](http://spec.datacatalogs.org/)
+- [Data.gov's API Catalog proposal](http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema)
