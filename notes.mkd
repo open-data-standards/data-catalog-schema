@@ -5,7 +5,10 @@
 - We "id" should be a URI to the /datasets/{id} resource catalog entry
 - Should we eliminate "name"? It seems redundant with "title"
 - Suggestion seemed to be use http://vocab.org/placetime/interval/gregorian/ for "temporal", so that's what we used
-- Definately agree with the use of the GeoJSON "geometry" object type
+- Definitely agree with the use of the GeoJSON "geometry" object type
+- Should include a contact email
 
-## Resoruce
+## Resource
+
+- Should include URL to Documentation (dcat:dataDictionary)
 
