@@ -16,6 +16,16 @@
 
 ### CSV
 
+## Reference Client Libraries
+
+### Scala
+
+### Java
+
+### Ruby
+
+### PHP
+
 ## Referenced Specs
 
 - [DCAT Working Draft](http://www.w3.org/TR/vocab-dcat/)
