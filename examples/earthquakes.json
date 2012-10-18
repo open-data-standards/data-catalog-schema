@@ -1,0 +1,43 @@
+{
+  "id": "earthquakes",
+  "uri": "http://data.usgs.gov/datasets/earthquakes",
+  "title": "USGS Earthquake Reports",
+  "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+  "author": "Chris Metcalf",
+  "maintainer": "Will Pugh",
+  "tags": ["earthquake", "usgs", "shake and bake"],
+  "spatial": {
+    "type": "Polygon",
+    "coordinates": [
+      [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
+    ]
+  }, 
+  "temporal": "http://placetime.com/interval/gregorian/2012-06-15T19:31:00Z/P1Y",
+  "version": "23",
+  "metadata_modified": "2012-10-07T16:46:00+800",
+  "metadata_created": "2012-10-07T16:46:00+800",
+  "resources": [ {
+    "resource_type": "api",
+    "url" : "http://data.usgs.gov/resource/earthquakes",
+    "mimetype" : "application/json;application/rdf+xml;text/csv",
+    "apitype" : "rest/soda",
+    "last_modified" : "2012-10-07T16:46:00+800",
+    "name" : "SODA API for USGS Earthquakes Reports"
+  }, {
+    "resource_type": "file",
+    "url" : "http://data.usgs.gov/api/views/abcd-1234/rows.csv",
+    "mimetype" : "text/csv",
+    "last_modified" : "2012-10-07T16:46:00+800",
+    "name" : "CSV Export for USGS Earthquakes Reports",
+    "size" : "2048",
+    "hash" : "sha1:941e94956d5ff68d31381731ef6d4ba0fa23f3bd"
+  }, {
+    "resource_type": "file",
+    "url" : "http://data.usgs.gov/api/views/abcd-1234/rows.xlsx",
+    "mimetype" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "last_modified" : "2012-10-07T16:46:00+800",
+    "name" : "CSV Export for USGS Earthquakes Reports",
+    "size" : "2048",
+    "hash" : "sha1:28298d9bd04d49cae0a499ef584f5b42b3dc6348"
+  } ]
+}
