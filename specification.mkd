@@ -1,0 +1,26 @@
+# Data Catalog Schema and API
+
+## Schema
+
+### Catalog
+
+### Dataset
+
+### Resource
+
+## Serialization
+
+### XML-RDF
+
+### JSON
+
+### CSV
+
+## Referenced Specs
+
+- [DCAT Working Draft](http://www.w3.org/TR/vocab-dcat/)
+- [GeoJSON](http://www.geojson.org/geojson-spec.html)
+- [Dublin Core](http://dublincore.org/documents/dcmi-terms/)
+- [Vocab.org Gregorian Intervals](http://vocab.org/placetime/interval/gregorian/)
+- [CKAN Data Management System Documentation](http://docs.ckan.org/en/latest/domain-model-resource.html#resource-format-strings)
+- [CKAN Data Catalog Schema and Protocol v0.1](http://spec.datacatalogs.org/)
