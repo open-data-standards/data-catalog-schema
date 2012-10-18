@@ -16,4 +16,4 @@ If you'd like to contribute, please do! Send us a pull request and we'd be glad 
 
 ## License
 
-Thia work is all licensed [Creative Commons By-Attribution 3.0](http://creativecommons.org/licenses/by/3.0/legalcode)
+This work is all licensed [Creative Commons By-Attribution 3.0](http://creativecommons.org/licenses/by/3.0/legalcode)
