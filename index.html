@@ -33,35 +33,223 @@
       <section id="main_content" class="inner">
         <h1>Data and API Catalog Schema</h1>
 
-<p>The beginnings of <a href="http://www.socrata">Socrata</a>'s proposed modifications to the proposed <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a> and <a href="http://spec.datacatalogs.org/">Data Catalog Schema and Protocol</a>.</p>
 
-<p>Our proposal is heavily based on the work previously done by the W3C on the <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a> standard and CKAN's proposed modifications to that standard in the <a href="http://spec.datacatalogs.org/">Data Catalog Schema and Protocol</a>. It also incorporates some of <a href="http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema">Data.gov's work on API catalogs</a>.</p>
+        It is important for data sources to be able to advertise their APIs and Datasets, so catalogs are able to pick them up.  There are two
+        important pieces in doing this:
 
-<h2>Files of note:</h2>
+        * Files or endpoints that catalogs or search engines can access to find the appropriate APIs and Datasets. This is similar to
+        how [sitemaps.xml](http://www.sitemaps.org/protocol.html) works for web sites.
+        * A standard format for describing APIs and Datasets, so that callers can gather the appropriate information.  There are
+        a number of formats suggested for this, this standard will start with the [CKAN's Data Catalog Schema and Protocol](http://spec.datacatalogs.org/)
+        modifications on top of [DCAT](http://www.w3.org/TR/vocab-dcat/)
 
-<ul>
-<li>specification.mkd - The detailed spec (work currently in progress)</li>
-<li>notes.mkd - Various notes from our learnings </li>
-<li>examples/ - Examples of catalog entries and listings in different formats </li>
-</ul><h2>Contributing</h2>
+        <h4>Catalog.xml and Api.xml</h4>
 
-<p>If you'd like to contribute, please do! Send us a pull request and we'd be glad to consider any proposed modifications.</p>
+        Any data source that provides datasets or Apis can expose them to catalogs and search engines through a few endpoints.
+        These enpoints are specifically created so they can be implemented through either simply creating a file or building a more
+        dynamic web service to implement them.
 
-<h2>License</h2>
+        The available endpoints are:
 
-<p>This work is all licensed <a href="http://creativecommons.org/licenses/by/3.0/legalcode">Creative Commons By-Attribution 3.0</a></p>
+        <ul>
+            <li><strong>/catalog.xml</strong> is an endpoint that contains all the resources contained by a data source.  This can include datasets,
+                Apis, and visualizations.</li>
+            <li><strong>/apis.xml</strong> is an endpoint that contains all the APIs surfaced by a data source.  This will ONLY include Apis.  The purpose
+                for pulling this file out separately is to make it easier for many API catalogs to provide programmatic access.  These SHOULD be
+                implemented by includes in the Catalog.xml.</li>
+        </ul>
+
+        <p>
+        In addition, Catalogs MAY want to provide query-able endpoints above and beyond Catalog.xml.  In this case, they are free to
+        do so, but the responses should correspond to the same format as below.
+        </p>
+        NOTE:  It would be nice to standardize on the catalog query api as well.  This could be an area of more work.
+
+        <h4>The Format</h4>
+
+        <p>
+        We think about the format of the endpoints in two ways, there is the data model and the actual file formats created.
+
+        The data model is based on [DCAT](http://www.w3.org/TR/vocab-dcat/), and the default file format is XML.  The XML format is
+        based on RDF, however, some dynamic endpoints MAY decide to offer other formats such as N3 or JSON.
+        </p>
+
+        <h4>Representation</h4>
+
+
+        <p>
+        <strong>Range:</strong>  dcat:distribution
+        <strong>Description:</strong>  Describes a resource provided by this data service (or catalog).  This is based on a dcat:distribution, however
+        extends it with a number of properties to add context, since this element is not showing up as part of a catalog entry.
+        </p>
+
+        <table>
+            <thead><td>Property</td><td>Type</td><td>Description</td></thead>
+            <tr><td>title</td><td>dct:title</td><td>The name or title for this representation. If not present, implementers should use the name from the related Dataset.</td></tr>
+            <tr><td>description</td><td>dct:description</td><td>Text describing this representation.  If not present, implementers should use the description from the related Dataset.</td></tr>
+            <tr><td>identifier</td><td>dct:identifier</td><td>Unique identifier for this data representation</td></tr>
+            <tr><td>keyword</td><td>dcat:keyword</td><td>Keywords specific to this representation.  If the dataset has keywords as well, the keywords relating to this object should be the union.</td></tr>
+            <tr><td>dataset</td><td>rdfs:Resource</td><td>Reference to the datasets this resource is a part of.  In the case that this aggregates or uses multiple data sets, this will contain all the datasets referenced.</td></tr>
+            <tr><td>last_modified</td><td>xsd:datetime</td><td>The time this was last modified</td></tr>
+            <tr><td>created</td><td>xsd:datetime</td><td>The time this was initially created</td></tr>
+            <tr><td>authentication</td><td>rdf:literal</td><td>Authentication type required for this resources. "None" means it is open to the public.  "Basic" means basic authentication. "OAuth" and "OAuth2" refer to OAuth version 1.0 and 2.0, respectively. This ONLY refers to mechanism and not how authorization is done.</td></tr>
+            <tr><td>contactEmail</td><td>rdf:literal</td><td>An optional field with the email address of the person to contact about this dataset.</td></tr>
+            <tr><td>documentation</td><td>rdf:Resource</td><td>The documentation for this site.  Should link to a human readable documentation.</td></tr>
+
+        </table>
+
+
+        <strong>Clarifications</strong>
+        Every resources MUST have at least one [dcat:format](http://www.w3.org/TR/vocab-dcat/#property--format) property.
+
+
+        <h4>Api</h4>
+
+        <strong>Range:</strong> ods:representation
+        <strong>Description:</strong> This is an API that accesses a particular dataset or set of datasets.
+
+        <table>
+            <thead>
+            <tr>
+                <th style="text-align:left;">Property</th>
+                <th style="text-align:left;">Type</th>
+                <th style="text-align:left;">Description</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td style="text-align:left;">client_library</td>
+                <td style="text-align:left;">rdfs:Resource</td>
+                <td style="text-align:left;">References a client library that can be used to access this API.</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">api_type</td>
+                <td style="text-align:left;">Literal</td>
+                <td style="text-align:left;">A string denoting a particular api this endpoint supports.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Examples</strong></p>
+
+<pre><code>&lt;ods:api&gt;
+    &lt;dct:title&gt;SODA Api for Current Recalls&lt;/dct:title&gt;
+    &lt;dct:description&gt;This is the SODA Api for getting access to all the egg products that are actively being investigated&lt;/dct:description&gt;
+    &lt;dct:identifier&gt;ongoing-egg-recalls&lt;/dct:identifier&gt;
+    &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls&lt;/dcat:accessURL&gt;
+    &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+
+    &lt;ods:authentication&gt;Basic&lt;/ods:authentication&gt;
+    &lt;ods:documentation&gt;https://fda.demo.socrata.com/developers/docs/egg-recalls&lt;/ods:documentation&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-java&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-scala&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-php&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-js&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-python&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-api-csharp&lt;/ods:client_library&gt;
+
+    &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+    &lt;!-- MIME Types provided --&gt;
+    &lt;dct:format&gt;application/json&lt;/dct:format&gt;
+    &lt;dct:format&gt;application/rdf+xml&lt;/dct:format&gt;
+    &lt;dct:format&gt;text/csv&lt;/dct:format&gt;
+
+    &lt;!-- What type of API it is --&gt;
+    &lt;ods:api_type&gt;rest/soda&lt;/ods:api_type&gt;
+    &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+    &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+    &lt;/ods:api&gt;
+</code></pre>
+
+        <h4 id="chart">Chart</h4>
+
+        <p>Range: ods:representation
+            Description: This is an chart.</p>
+
+        <p><strong>Example</strong></p>
+
+        <p>The following example, would surface a chart that is based on several different datasets, for each year of egg recalls. Since,
+            this does not neatly fit into the dataset down approach of DCAT, we annotate this with the dataset property from ods:Representation</p>
+
+<pre><code>&lt;ods:chart&gt;
+    &lt;dct:title&gt;Number of recalls per manufacturer (2004 - 2012)&lt;/dct:title&gt;
+    &lt;dct:description&gt;This chart graphs the number of egg product recalls per manufacturer for the years 2004 - 2010&lt;/dct:description&gt;
+    &lt;dct:identifier&gt;recalls-per-manufacturer&lt;/dct:identifier&gt;
+    &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/recalls-per-manufacturer&lt;/dcat:accessURL&gt;
+    &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+
+    &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+    &lt;!-- MIME Types accepted --&gt;
+    &lt;dct:format&gt;text/html&lt;/dct:format&gt;
+    &lt;dct:format&gt;image/png&lt;/dct:format&gt;
+
+
+    &lt;!-- Since this chart uses data from many different datasets, it references them here --&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2004&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2005&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2006&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2007&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2008&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2009&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2010&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2011&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2012&lt;/ods:dataset&gt;
+
+
+    &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+    &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+    &lt;/ods:chart&gt;
+</code></pre>
+
+        <h4 id="map">Map</h4>
+
+        <p>Range: ods:representation
+            Description: This is a map.</p>
+
+        <h4 id="deriveddataset">DerivedDataset</h4>
+
+        <p>Range: ods:representation
+            Description: This is a dataset that is derived from the datasets in the Resource:dataset property.</p>
+
+        <h2 id="filesofnote:">Files of note:</h2>
+
+        <ul>
+            <li>specification.mkd - The detailed spec (work currently in progress)</li>
+            <li>notes.mkd - Various notes from our learnings</li>
+            <li>examples/ - Examples of catalog entries and listings in different formats</li>
+        </ul>
+
+        <h2 id="contributing">Contributing</h2>
+
+        <p>If you&#8217;d like to contribute, please do! There are many ways to do so:</p>
+
+        <ul>
+            <li>Join the conversation on the <a href="https://groups.google.com/forum/#!forum/opendatastandards">Google Group for Open Data Standards</a></li>
+            <li>Add your own comments to the spec and send us a pull request</li>
+            <li>Add issues to the issue tracking system for this project</li>
+        </ul>
+
+        <h2 id="inspirationsandreferences">Inspirations and References</h2>
+
+        <ul>
+            <li><a href="http://www.w3.org/TR/vocab-dcat/">DCAT Working Draft</a></li>
+            <li><a href="http://www.geojson.org/geojson-spec.html">GeoJSON</a></li>
+            <li><a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a></li>
+            <li><a href="http://vocab.org/placetime/interval/gregorian/">Vocab.org Gregorian Intervals</a></li>
+            <li><a href="http://docs.ckan.org/en/latest/domain-model-resource.html#resource-format-strings">CKAN Data Management System Documentation</a></li>
+            <li><a href="http://spec.datacatalogs.org/">CKAN Data Catalog Schema and Protocol v0.1</a></li>
+            <li><a href="http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema">Data.gov&#8217;s API Catalog proposal</a></li>
+        </ul>
+
+        <h2 id="license">License</h2>
+
+        <p>This work is all licensed <a href="http://creativecommons.org/licenses/by/3.0/legalcode">Creative Commons By-Attribution 3.0</a></p>
       </section>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Data-catalog-schema maintained by <a href="https://github.com/open-data-standards">open-data-standards</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
