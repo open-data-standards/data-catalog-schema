@@ -1,8 +1,162 @@
 # Data and API Catalog Schema
 
-The beginnings of [Socrata](http://www.socrata)'s proposed modifications to the proposed [DCAT](http://www.w3.org/TR/vocab-dcat/) and [Data Catalog Schema and Protocol](http://spec.datacatalogs.org/).
+It is important for data sources to be able to advertise their APIs and Datasets, so catalogs are able to pick them up.  There are two
+important pieces in doing this:
 
-Our proposal is heavily based on the work previously done by the W3C on the [DCAT](http://www.w3.org/TR/vocab-dcat/) standard and CKAN's proposed modifications to that standard in the [Data Catalog Schema and Protocol](http://spec.datacatalogs.org/). It also incorporates some of [Data.gov's work on API catalogs](http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema).
+* Files or endpoints that catalogs or search engines can access to find the appropriate APIs and Datasets. This is similar to
+how [sitemaps.xml](http://www.sitemaps.org/protocol.html) works for web sites.
+* A standard format for describing APIs and Datasets, so that callers can gather the appropriate information.  There are
+a number of formats suggested for this, this standard will start with the [CKAN's Data Catalog Schema and Protocol](http://spec.datacatalogs.org/)
+modifications on top of [DCAT](http://www.w3.org/TR/vocab-dcat/)
+
+## Catalog.xml and Api.xml
+
+Any data source that provides datasets or Apis can expose them to catalogs and search engines through a few endpoints.
+These enpoints are specifically created so they can be implemented through either simply creating a file or building a more
+dynamic web service to implement them.
+
+The available endpoints are:
+
+*  **/catalog.xml** is an endpoint that contains all the resources contained by a data source.  This can include datasets,
+ Apis, and visualizations.
+*  **/apis.xml** is an endpoint that contains all the APIs surfaced by a data source.  This will ONLY include Apis.  The purpose
+ for pulling this file out separately is to make it easier for many API catalogs to provide programmatic access.  These SHOULD be
+ implemented by includes in the Catalog.xml.
+
+In addition, Catalogs MAY want to provide query-able endpoints above and beyond Catalog.xml.  In this case, they are free to
+do so, but the responses should correspond to the same format as below.
+
+NOTE:  It would be nice to standardize on the catalog query api as well.  This could be an area of more work.
+
+## The Format
+
+We think about the format of the endpoints in two ways, there is the data model and the actual file formats created.
+
+The data model is based on [DCAT](http://www.w3.org/TR/vocab-dcat/), and the default file format is XML.  The XML format is
+based on RDF, however, some dynamic endpoints MAY decide to offer other formats such as N3 or JSON.
+
+
+#### Representation
+
+Range:  dcat:distribution
+Description:  Describes a resource provided by this data service (or catalog).  This is based on a dcat:distribution, however
+extends it with a number of properties to add context, since this element is not showing up as part of a catalog entry.
+
+|Property|Type|Description|
+|---|---|---|
+|title|dct:title|The name or title for this representation. If not present, implementers should use the name from the related Dataset.|
+|description|dct:description|Text describing this representation.  If not present, implementers should use the description from the related Dataset.|
+|identifier|dct:identifier|Unique identifier for this data representation|
+|keyword|dcat:keyword|Keywords specific to this representation.  If the dataset has keywords as well, the keywords relating to this object should be the union.|
+|dataset|rdfs:Resource|Reference to the datasets this resource is a part of.  In the case that this aggregates or uses multiple data sets, this will contain all the datasets referenced.|
+|last_modified|xsd:datetime|The time this was last modified|
+|created|xsd:datetime|The time this was initially created|
+|authentication|Literal|Authentication type required for this resources. "None" means it is open to the public.  "Basic" means basic authentication. "OAuth" and "OAuth2" refer to OAuth version 1.0 and 2.0, respectively. This ONLY refers to mechanism and not how authorization is done.|
+|contactEmail|Literal|An optional field with the email address of the person to contact about this dataset.|
+|documentation|rdfs:Resource|The documentation for this site.  Should link to a human readable documentation.|
+
+**Clarifications**
+Every resources MUST have at least one [dcat:format](http://www.w3.org/TR/vocab-dcat/#property--format) property.
+
+
+
+
+#### Api
+
+Range: ods:representation
+Description: This is an API that accesses a particular dataset or set of datasets.
+
+|Property|Type|Description|
+|---|---|---|
+|client_library|rdfs:Resource|References a client library that can be used to access this API.|
+|api_type|Literal|A string denoting a particular api this endpoint supports.
+
+**Examples**
+
+
+    <ods:api>
+        <dct:title>SODA Api for Current Recalls</dct:title>
+        <dct:description>This is the SODA Api for getting access to all the egg products that are actively being investigated</dct:description>
+        <dct:identifier>ongoing-egg-recalls</dct:identifier>
+        <dcat:accessURL>https://fda.demo.socrata.com/resource/ongoing-egg-recalls</dcat:accessURL>
+        <dcat:keyword>Eggs</dcat:keyword>
+        <dcat:keyword>Recalls</dcat:keyword>
+
+        <ods:authentication>Basic</ods:authentication>
+        <ods:documentation>https://fda.demo.socrata.com/developers/docs/egg-recalls</ods:documentation>
+        <ods:client_library>https://github.com/socrata/soda-java</ods:client_library>
+        <ods:client_library>https://github.com/socrata/soda-scala</ods:client_library>
+        <ods:client_library>https://github.com/socrata/socrata-php</ods:client_library>
+        <ods:client_library>https://github.com/socrata/soda-js</ods:client_library>
+        <ods:client_library>https://github.com/socrata/socrata-python</ods:client_library>
+        <ods:client_library>https://github.com/socrata/socrata-api-csharp</ods:client_library>
+
+        <ods:contact_email>someone@fda.gov</ods:contact_email>
+
+        <!-- MIME Types provided -->
+        <dct:format>application/json</dct:format>
+        <dct:format>application/rdf+xml</dct:format>
+        <dct:format>text/csv</dct:format>
+
+        <!-- What type of API it is -->
+        <ods:api_type>rest/soda</ods:api_type>
+        <ods:last_modified>2012-10-10T16:46:00+800</ods:last_modified>
+        <ods:created>2012-10-10T16:46:00+800</ods:created>
+    </ods:api>
+
+
+#### Chart
+
+Range: ods:representation
+Description: This is an chart.
+
+**Example**
+
+The following example, would surface a chart that is based on several different datasets, for each year of egg recalls.  Since,
+this does not neatly fit into the dataset down approach of DCAT, we annotate this with the dataset property from ods:Representation
+
+    <ods:chart>
+        <dct:title>Number of recalls per manufacturer (2004 - 2012)</dct:title>
+        <dct:description>This chart graphs the number of egg product recalls per manufacturer for the years 2004 - 2010</dct:description>
+        <dct:identifier>recalls-per-manufacturer</dct:identifier>
+        <dcat:accessURL>https://fda.demo.socrata.com/resource/recalls-per-manufacturer</dcat:accessURL>
+        <dcat:keyword>Eggs</dcat:keyword>
+        <dcat:keyword>Recalls</dcat:keyword>
+
+        <ods:contact_email>someone@fda.gov</ods:contact_email>
+
+        <!-- MIME Types accepted -->
+        <dct:format>text/html</dct:format>
+        <dct:format>image/png</dct:format>
+
+
+        <!-- Since this chart uses data from many different datasets, it references them here -->
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2004</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2005</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2006</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2007</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2008</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2009</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2010</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2011</ods:dataset>
+        <ods:dataset>https://fda.demo.socrata.com/resource/egg-recalls-2012</ods:dataset>
+
+
+        <ods:last_modified>2012-10-10T16:46:00+800</ods:last_modified>
+        <ods:created>2012-10-10T16:46:00+800</ods:created>
+    </ods:chart>
+
+
+#### Map
+
+Range: ods:representation
+Description: This is a map.
+
+#### DerivedDataset
+
+Range: ods:representation
+Description: This is a dataset that is derived from the datasets in the Resource:dataset property.
+
 
 ## Files of note:
 
@@ -12,7 +166,22 @@ Our proposal is heavily based on the work previously done by the W3C on the [DCA
 
 ## Contributing
 
-If you'd like to contribute, please do! Send us a pull request and we'd be glad to consider any proposed modifications.
+If you'd like to contribute, please do! There are many ways to do so:
+
+*  Join the conversation on the [Google Group for Open Data Standards](https://groups.google.com/forum/#!forum/opendatastandards)
+*  Add your own comments to the spec and send us a pull request
+*  Add issues to the issue tracking system for this project
+
+
+## Inspirations and References
+
+- [DCAT Working Draft](http://www.w3.org/TR/vocab-dcat/)
+- [GeoJSON](http://www.geojson.org/geojson-spec.html)
+- [Dublin Core](http://dublincore.org/documents/dcmi-terms/)
+- [Vocab.org Gregorian Intervals](http://vocab.org/placetime/interval/gregorian/)
+- [CKAN Data Management System Documentation](http://docs.ckan.org/en/latest/domain-model-resource.html#resource-format-strings)
+- [CKAN Data Catalog Schema and Protocol v0.1](http://spec.datacatalogs.org/)
+- [Data.gov's API Catalog proposal](http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema)
 
 ## License
 
