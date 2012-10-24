@@ -40,9 +40,9 @@
                 modifications on top of <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a></li>
         </ol>
 
-        <h4>Catalog.xml and Api.xml</h4>
+        <h4>catalog.xml and api.xml</h4>
 
-        Any data source that provides datasets or Apis can expose them to catalogs and search engines through a few endpoints.
+        Any data source that provides datasets or APIs can expose them to catalogs and search engines through a few endpoints.
         These enpoints are specifically created so they can be implemented through either simply creating a file or building a more
         dynamic web service to implement them.  This is important, because one goal of the standard is to allow simple data stores to be able to
         expose APIs or datasets through a catalog.
@@ -51,14 +51,14 @@
 
         <ul>
             <li><strong>/catalog.xml</strong> is an endpoint that contains all the resources contained by a data source.  This can include datasets,
-                Apis, and visualizations.</li>
-            <li><strong>/apis.xml</strong> is an endpoint that contains all the APIs surfaced by a data source.  This will ONLY include Apis.  The purpose
+                APIs, and visualizations.</li>
+            <li><strong>/apis.xml</strong> is an endpoint that contains all the APIs surfaced by a data source.  This will ONLY include APIs.  The purpose
                 for pulling this file out separately is to make it easier for many API catalogs to provide programmatic access.  These SHOULD be
                 implemented by includes in the Catalog.xml.</li>
         </ul>
 
         <p>
-        In addition, Catalogs MAY want to provide query-able endpoints above and beyond Catalog.xml.  In this case, they are free to
+        In addition, Catalogs MAY provide query-able endpoints above and beyond Catalog.xml.  In this case, they are free to
         do so, but the responses should correspond to the same format as below.
         </p>
 
@@ -116,7 +116,7 @@
             <tr><td>last_modified</td><td>xsd:datetime</td><td>The time this was last modified</td></tr>
             <tr><td>created</td><td>xsd:datetime</td><td>The time this was initially created</td></tr>
             <tr><td>authentication</td><td>rdf:literal</td><td>Authentication type required for this resources. "None" means it is open to the public.  "Basic" means basic authentication. "OAuth" and "OAuth2" refer to OAuth version 1.0 and 2.0, respectively. This ONLY refers to mechanism and not how authorization is done.</td></tr>
-            <tr><td>contactEmail</td><td>rdf:literal</td><td>An optional field with the email address of the person to contact about this dataset.</td></tr>
+            <tr><td>contact_email</td><td>rdf:literal</td><td>An optional field with the email address of the person to contact about this dataset.</td></tr>
             <tr><td>documentation</td><td>rdf:Resource</td><td>The documentation for this site.  Should link to a human readable documentation.</td></tr>
 
         </table>
@@ -239,12 +239,50 @@
         <h4 id="map">Map</h4>
 
         <p><strong>Range:</strong> ods:representation</p>
-        <p><strong>Description:</strong> This is a map.</p>
+        <p><strong>Description:</strong> A map representation of the data in one or more datasets. The metadata fields
+          provided for this Representation type were inspired by standards such as <a
+            href="http://www.fgdc.gov/standards/projects/incits-l1-standards-projects/NAP-Metadata">ISO 19115:2003</a>.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th style="text-align:left;">Property</th>
+                <th style="text-align:left;">Type</th>
+                <th style="text-align:left;">Description</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td style="text-align:left;">extents</td>
+                <td style="text-align:left;">TBD</td>
+                <td style="text-align:left;">The geographic extents that this map covers.</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;">projection</td>
+                <td style="text-align:left;">TBD</td>
+                <td style="text-align:left;">The geospatial projection of this map</td>
+            </tr>
+            </tbody>
+        </table>
 
         <h4 id="deriveddataset">DerivedDataset</h4>
 
         <p><strong>Range:</strong> ods:representation</p>
-        <p><strong>Description:</strong> This is a dataset that is derived from the datasets in the Resource:dataset property.</p>
+        <p><strong>Description:</strong> A "Derived Dataset" is a data product that is the result of filtering or combining
+          one or more datasets in a particular way. For example:</p>
+
+        <ul>
+          <li>Taking two datasets and joining them on a common identifier</li>
+          <li>Taking a larger dataset and filtering it down to represent a specific subset</li>
+          <li>Taking a larger dataset and aggregating it in some way</li>
+          <li>Modifying a dataset as the result of a computation or conversion, such as translating a dataset from one
+            language to another, or converting the currencies or units of a dataset</li>
+        </ul>
+
+        <p>At a minimum, every derived dataset should include a description of the modificaitons that were performed in its
+          Description field. A more formal description of the steps involved will be considered in the future, but is out of
+        scope for now.</p>
 
         <h2 id="contributing">Contributing</h2>
 
