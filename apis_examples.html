@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Open-data-standards.github.com : Open data standards" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Apis.xml example</title>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/open-data-standards">View on GitHub</a>
+
+        <h1 id="project_title">Apis.xml example</h1>
+
+    </header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+      <pre><code>&lt;rdf:RDF xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; xmlns:owl=&quot;http://www.w3.org/2002/07/owl#&quot;
+         xmlns:rdfs=&quot;http://www.w3.org/2000/01/rdf-schema#&quot;
+         xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+         xmlns:dcat=&quot;http://www.w3.org/ns/dcat#&quot;
+         xmlns:ods=&quot;http://open-data-standards.github.com/2012/01/open-data-standards#&quot;
+         xmlns:dct=&quot;http://purl.org/dc/terms/&quot;&gt;
+
+
+    &lt;dcat:Dataset rdf:about=&quot;https://fda.demo.socrata.com/dataset/Shell-Eggs-Recall-List2010/hnup-s94r&quot;&gt;
+        &lt;owl:sameAs rdf:resource=&quot;https://fda.demo.socrata.com/resource/hnup-s94r&quot;&gt;&lt;/owl:sameAs&gt;
+        &lt;dct:title&gt;Shell Eggs Recall List2010&lt;/dct:title&gt;
+        &lt;dct:description&gt;List of all the recalled egg products from 2010&lt;/dct:description&gt;
+        &lt;dct:identifier&gt;hnup-s94r&lt;/dct:identifier&gt;
+        &lt;dcat:keyword&gt;FDA&lt;/dcat:keyword&gt;
+
+        &lt;ods:api&gt;
+            &lt;dct:title&gt;SODA Api for Current Recalls&lt;/dct:title&gt;
+            &lt;dct:description&gt;This is the SODA Api for getting access to all the egg products that are actively being investigated&lt;/dct:description&gt;
+            &lt;dct:identifier&gt;ongoing-egg-recalls&lt;/dct:identifier&gt;
+            &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls&lt;/dcat:accessURL&gt;
+            &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+            &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+
+            &lt;ods:authentication&gt;Basic&lt;/ods:authentication&gt;
+            &lt;ods:documentation&gt;https://fda.demo.socrata.com/developers/docs/egg-recalls&lt;/ods:documentation&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/soda-java&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-python&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-api-csharp&lt;/ods:client_library&gt;
+
+            &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+            &lt;!-- MIME Types provided --&gt;
+            &lt;dct:format&gt;application/json&lt;/dct:format&gt;
+            &lt;dct:format&gt;application/rdf+xml&lt;/dct:format&gt;
+            &lt;dct:format&gt;text/csv&lt;/dct:format&gt;
+
+            &lt;!-- What type of API it is --&gt;
+            &lt;ods:api_type&gt;rest/soda&lt;/ods:api_type&gt;
+            &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+            &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+        &lt;/ods:api&gt;
+        &lt;ods:api&gt;
+            &lt;dct:title&gt;SODA Api for Aggregated Recalls Per Brand Name&lt;/dct:title&gt;
+            &lt;dct:description&gt;This API is an aggregation built on the egg recalls that keeps track of the number of
+            recalls for each brand name.&lt;/dct:description&gt;
+            &lt;dct:identifier&gt;ongoing-egg-recalls-by-brand&lt;/dct:identifier&gt;
+            &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls-by-brand&lt;/dcat:accessURL&gt;
+            &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+            &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+            &lt;dcat:keyword&gt;Brands&lt;/dcat:keyword&gt;
+
+            &lt;ods:documentation&gt;https://fda.demo.socrata.com/developers/docs/ongoing-egg-recalls-by-brand&lt;/ods:documentation&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/soda-java&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-python&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-api-csharp&lt;/ods:client_library&gt;
+
+            &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+            &lt;!-- MIME Types provided --&gt;
+            &lt;dct:format&gt;application/json&lt;/dct:format&gt;
+            &lt;dct:format&gt;application/rdf+xml&lt;/dct:format&gt;
+            &lt;dct:format&gt;text/csv&lt;/dct:format&gt;
+
+            &lt;!-- What type of API it is --&gt;
+            &lt;ods:api_type&gt;rest/soda&lt;/ods:api_type&gt;
+            &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+            &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+        &lt;/ods:api&gt;
+    &lt;/dcat:Dataset&gt;
+
+
+    &lt;dcat:Dataset rdf:about=&quot;https://fda.demo.socrata.com/dataset/Registered-Drug-Dispensaries/xyqn-j4yg&quot;&gt;
+        &lt;owl:sameAs rdf:resource=&quot;https://fda.demo.socrata.com/resource/xyqn-j4yg&quot;&gt;&lt;/owl:sameAs&gt;
+        &lt;dct:title&gt;Registered Drug Dispensaries&lt;/dct:title&gt;
+        &lt;dct:description&gt;The Drug Listing Act of 1972 requires registered drug establishments to provide the Food and
+        Drug Administration (FDA) with a current list of all drugs manufactured, prepared, propagated, compounded, or
+        processed by it for commercial distribution. (See Section 510 of the Federal Food, Drug, and Cosmetic Act (Act)
+        (21 U.S.C. § 360)). Drug products are identified and reported using a unique, three-segment number, called the
+        National Drug Code (NDC), which is a universal product identifier for human drugs. FDA inputs the full NDC number
+        and the information submitted as part of the listing process into a database known as the Drug Registration and
+        Listing System (DRLS). On the 1st and 15th of each month, FDA extracts some of the information from the DRLS data
+        base (currently, properly listed marketed prescription drug products and insulin) and publishes that information in
+        the NDC Directory.&lt;/dct:description&gt;
+
+        &lt;dct:identifier&gt;xyqn-j4yg&lt;/dct:identifier&gt;
+        &lt;dcat:keyword&gt;FDA&lt;/dcat:keyword&gt;
+
+        &lt;ods:api&gt;
+            &lt;dct:title&gt;SODA Api for Drug Dispensaries&lt;/dct:title&gt;
+            &lt;dct:description&gt;This is the SODA Api for getting access to the Drug Dispensaries&lt;/dct:description&gt;
+            &lt;dct:identifier&gt;drug-dispensaries&lt;/dct:identifier&gt;
+            &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/drug-dispensaries&lt;/dcat:accessURL&gt;
+            &lt;dcat:keyword&gt;Dispensaries&lt;/dcat:keyword&gt;
+
+            &lt;ods:documentation&gt;https://fda.demo.socrata.com/developers/docs/drug-dispensaries&lt;/ods:documentation&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/soda-java&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-python&lt;/ods:client_library&gt;
+            &lt;ods:client_library&gt;https://github.com/socrata/socrata-api-csharp&lt;/ods:client_library&gt;
+
+            &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+            &lt;!-- MIME Types provided --&gt;
+            &lt;dct:format&gt;application/json&lt;/dct:format&gt;
+            &lt;dct:format&gt;application/rdf+xml&lt;/dct:format&gt;
+            &lt;dct:format&gt;text/csv&lt;/dct:format&gt;
+
+            &lt;!-- What type of API it is --&gt;
+            &lt;ods:api_type&gt;rest/soda&lt;/ods:api_type&gt;
+            &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+            &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+        &lt;/ods:api&gt;
+
+    &lt;/dcat:Dataset&gt;
+
+&lt;/rdf&gt;
+</code></pre>
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
+
+
+
+</body>
+</html>

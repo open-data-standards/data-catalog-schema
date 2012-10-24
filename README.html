@@ -1,0 +1,294 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>README</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+/* 
+   This document has been created with Marked.app <http://markedapp.com>, Copyright 2011 Brett Terpstra
+   Please leave this notice in place, along with any additional credits below.
+   ---------------------------------------------------------------
+   Title: Swiss
+   Author: Brett Terpstra
+   Description: Clean, Swiss typography with no frills.
+*/
+body{-webkit-font-smoothing:antialiased;font:normal .8764em/1.5em Arial,Verdana,sans-serif;margin:0}html>body{font-size:13px}li{font-size:110%}li li{font-size:100%}li p{font-size:100%;margin:.5em 0}h1{color:#000;font-size:2.2857em;line-height:.6563em;margin:.6563em 0}h2{color:#111;font-size:1.7143em;line-height:.875em;margin:.875em 0}h3{color:#111;font-size:1.5em;line-height:1em;margin:1em 0}h4{color:#111;font-size:1.2857em;line-height:1.1667em;margin:1.1667em 0}h5{color:#111;font-size:1.15em;line-height:1.3em;margin:1.3em 0}h6{font-size:1em;line-height:1.5em;margin:1.5em 0}body,p,td,div{color:#111;font-family:"Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;word-wrap:break-word}h1,h2,h3,h4,h5,h6{line-height:1.5em}a{-webkit-transition:color .2s ease-in-out;color:#0d6ea1;text-decoration:none}a:hover{color:#3593d9}.footnote{color:#0d6ea1;font-size:.8em;vertical-align:super}#wrapper img{max-width:100%;height:auto}dd{margin-bottom:1em}li>p:first-child{margin:0}ul ul,ul ol{margin-bottom:.4em}caption,col,colgroup,table,tbody,td,tfoot,th,thead,tr{border-spacing:0}table{border:1px solid rgba(0,0,0,0.25);border-collapse:collapse;display:table;empty-cells:hide;margin:-1px 0 23px;padding:0;table-layout:fixed}caption{display:table-caption;font-weight:700}col{display:table-column}colgroup{display:table-column-group}tbody{display:table-row-group}tfoot{display:table-footer-group}thead{display:table-header-group}td,th{display:table-cell}tr{display:table-row}table th,table td{font-size:1.1em;line-height:23px;padding:0 1em}table thead{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-bottom:1px solid rgba(0,0,0,0.2)}table tbody{background:rgba(0,0,0,0.05)}table tfoot{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-top:1px solid rgba(0,0,0,0.2)}figure{display:inline-block;margin-bottom:1.2em;position:relative;margin:1em 0}figcaption{font-style:italic;text-align:center;background:rgba(0,0,0,.9);color:rgba(255,255,255,1);position:absolute;left:0;bottom:-24px;width:98%;padding:1%;-webkit-transition:all .2s ease-in-out}.poetry pre{display:block;font-family:Georgia,Garamond,serif!important;font-size:110%!important;font-style:italic;line-height:1.6em;margin-left:1em}.poetry pre code{font-family:Georgia,Garamond,serif!important}blockquote p{font-size:110%;font-style:italic;line-height:1.6em}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;position:relative;vertical-align:super}sub{vertical-align:sub;top:-1px}p,h5{font-size:1.1429em;line-height:1.3125em;margin:1.3125em 0}dt,th{font-weight:700}table tr:nth-child(odd),table th:nth-child(odd),table td:nth-child(odd){background:rgba(255,255,255,0.06)}table tr:nth-child(even),table td:nth-child(even){background:rgba(0,0,0,0.06)}@media print{body{overflow:auto}img,pre,blockquote,table,figure,p{page-break-inside:avoid}#wrapper{background:#fff;color:#303030;font-size:85%;padding:10px;position:relative;text-indent:0}}@media screen{.inverted #wrapper,.inverted{background:rgba(37,42,42,1)}.inverted hr{border-color:rgba(51,63,64,1)!important}.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted pre,.inverted code,.inverted th,.inverted .math,.inverted caption,.inverted dd,.inverted dt{color:#eee!important}.inverted table tr:nth-child(odd),.inverted table th:nth-child(odd),.inverted table td:nth-child(odd){background:0}.inverted a{color:rgba(172,209,213,1)}#wrapper{padding:20px}::selection{background:rgba(157,193,200,.5)}h1::selection{background-color:rgba(45,156,208,.3)}h2::selection{background-color:rgba(90,182,224,.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,.3)}code::selection{background-color:rgba(0,0,0,.7);color:#eee}code span::selection{background-color:rgba(0,0,0,.7)!important;color:#eee!important}a::selection{background-color:rgba(255,230,102,.2)}.inverted a::selection{background-color:rgba(255,230,102,.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,.5)}}
+</style>
+
+</head>
+<body class="normal">
+  <div id="wrapper">
+      <h1 id="dataandapicatalogschema">Data and API Catalog Schema</h1>
+
+<p>It is important for data sources to be able to advertise their APIs and Datasets, so catalogs are able to pick them up. There are two
+important pieces in doing this:</p>
+
+<ul>
+<li>Files or endpoints that catalogs or search engines can access to find the appropriate APIs and Datasets. This is similar to
+how <a href="http://www.sitemaps.org/protocol.html">sitemaps.xml</a> works for web sites.</li>
+<li>A standard format for describing APIs and Datasets, so that callers can gather the appropriate information. There are
+a number of formats suggested for this, this standard will start with the <a href="http://spec.datacatalogs.org/">CKAN&#8217;s Data Catalog Schema and Protocol</a>
+modifications on top of <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a></li>
+</ul>
+
+<h2 id="catalog.xmlandapi.xml">Catalog.xml and Api.xml</h2>
+
+<p>Any data source that provides datasets or Apis can expose them to catalogs and search engines through a few endpoints.
+These enpoints are specifically created so they can be implemented through either simply creating a file or building a more
+dynamic web service to implement them.</p>
+
+<p>The available endpoints are:</p>
+
+<ul>
+<li><strong>/catalog.xml</strong> is an endpoint that contains all the resources contained by a data source. This can include datasets,
+ Apis, and visualizations.</li>
+<li><strong>/apis.xml</strong> is an endpoint that contains all the APIs surfaced by a data source. This will ONLY include Apis. The purpose
+ for pulling this file out separately is to make it easier for many API catalogs to provide programmatic access. These SHOULD be
+ implemented by includes in the Catalog.xml.</li>
+</ul>
+
+<p>In addition, Catalogs MAY want to provide query-able endpoints above and beyond Catalog.xml. In this case, they are free to
+do so, but the responses should correspond to the same format as below.</p>
+
+<p>NOTE: It would be nice to standardize on the catalog query api as well. This could be an area of more work.</p>
+
+<h2 id="theformat">The Format</h2>
+
+<p>We think about the format of the endpoints in two ways, there is the data model and the actual file formats created.</p>
+
+<p>The data model is based on <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a>, and the default file format is XML. The XML format is
+based on RDF, however, some dynamic endpoints MAY decide to offer other formats such as N3 or JSON.</p>
+
+<h4 id="representation">Representation</h4>
+
+<p>Range: dcat:distribution
+Description: Describes a resource provided by this data service (or catalog). This is based on a dcat:distribution, however
+extends it with a number of properties to add context, since this element is not showing up as part of a catalog entry.</p>
+
+<table>
+<colgroup>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:left;">Property</th>
+	<th style="text-align:left;">Type</th>
+	<th style="text-align:left;">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:left;">title</td>
+	<td style="text-align:left;">dct:title</td>
+	<td style="text-align:left;">The name or title for this representation. If not present, implementers should use the name from the related Dataset.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">description</td>
+	<td style="text-align:left;">dct:description</td>
+	<td style="text-align:left;">Text describing this representation. If not present, implementers should use the description from the related Dataset.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">identifier</td>
+	<td style="text-align:left;">dct:identifier</td>
+	<td style="text-align:left;">Unique identifier for this data representation</td>
+</tr>
+<tr>
+	<td style="text-align:left;">keyword</td>
+	<td style="text-align:left;">dcat:keyword</td>
+	<td style="text-align:left;">Keywords specific to this representation. If the dataset has keywords as well, the keywords relating to this object should be the union.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">dataset</td>
+	<td style="text-align:left;">rdfs:Resource</td>
+	<td style="text-align:left;">Reference to the datasets this resource is a part of. In the case that this aggregates or uses multiple data sets, this will contain all the datasets referenced.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">last_modified</td>
+	<td style="text-align:left;">xsd:datetime</td>
+	<td style="text-align:left;">The time this was last modified</td>
+</tr>
+<tr>
+	<td style="text-align:left;">created</td>
+	<td style="text-align:left;">xsd:datetime</td>
+	<td style="text-align:left;">The time this was initially created</td>
+</tr>
+<tr>
+	<td style="text-align:left;">authentication</td>
+	<td style="text-align:left;">Literal</td>
+	<td style="text-align:left;">Authentication type required for this resources. &#8220;None&#8221; means it is open to the public. &#8220;Basic&#8221; means basic authentication. &#8220;OAuth&#8221; and &#8220;OAuth2&#8221; refer to OAuth version 1.0 and 2.0, respectively. This ONLY refers to mechanism and not how authorization is done.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">contactEmail</td>
+	<td style="text-align:left;">Literal</td>
+	<td style="text-align:left;">An optional field with the email address of the person to contact about this dataset.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">documentation</td>
+	<td style="text-align:left;">rdfs:Resource</td>
+	<td style="text-align:left;">The documentation for this site. Should link to a human readable documentation.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clarifications</strong>
+Every resources MUST have at least one <a href="http://www.w3.org/TR/vocab-dcat/#property--format">dcat:format</a> property.</p>
+
+<h4 id="api">Api</h4>
+
+<p>Range: ods:representation
+Description: This is an API that accesses a particular dataset or set of datasets.</p>
+
+<table>
+<colgroup>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:left;">Property</th>
+	<th style="text-align:left;">Type</th>
+	<th style="text-align:left;">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:left;">client_library</td>
+	<td style="text-align:left;">rdfs:Resource</td>
+	<td style="text-align:left;">References a client library that can be used to access this API.</td>
+</tr>
+<tr>
+	<td style="text-align:left;">api_type</td>
+	<td style="text-align:left;">Literal</td>
+	<td style="text-align:left;">A string denoting a particular api this endpoint supports.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+
+<pre><code>&lt;ods:api&gt;
+    &lt;dct:title&gt;SODA Api for Current Recalls&lt;/dct:title&gt;
+    &lt;dct:description&gt;This is the SODA Api for getting access to all the egg products that are actively being investigated&lt;/dct:description&gt;
+    &lt;dct:identifier&gt;ongoing-egg-recalls&lt;/dct:identifier&gt;
+    &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls&lt;/dcat:accessURL&gt;
+    &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+
+    &lt;ods:authentication&gt;Basic&lt;/ods:authentication&gt;
+    &lt;ods:documentation&gt;https://fda.demo.socrata.com/developers/docs/egg-recalls&lt;/ods:documentation&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-java&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-scala&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-php&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/soda-js&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-python&lt;/ods:client_library&gt;
+    &lt;ods:client_library&gt;https://github.com/socrata/socrata-api-csharp&lt;/ods:client_library&gt;
+
+    &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+    &lt;!-- MIME Types provided --&gt;
+    &lt;dct:format&gt;application/json&lt;/dct:format&gt;
+    &lt;dct:format&gt;application/rdf+xml&lt;/dct:format&gt;
+    &lt;dct:format&gt;text/csv&lt;/dct:format&gt;
+
+    &lt;!-- What type of API it is --&gt;
+    &lt;ods:api_type&gt;rest/soda&lt;/ods:api_type&gt;
+    &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+    &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+&lt;/ods:api&gt;
+</code></pre>
+
+<h4 id="chart">Chart</h4>
+
+<p>Range: ods:representation
+Description: This is an chart.</p>
+
+<p><strong>Example</strong></p>
+
+<p>The following example, would surface a chart that is based on several different datasets, for each year of egg recalls. Since,
+this does not neatly fit into the dataset down approach of DCAT, we annotate this with the dataset property from ods:Representation</p>
+
+<pre><code>&lt;ods:chart&gt;
+    &lt;dct:title&gt;Number of recalls per manufacturer (2004 - 2012)&lt;/dct:title&gt;
+    &lt;dct:description&gt;This chart graphs the number of egg product recalls per manufacturer for the years 2004 - 2010&lt;/dct:description&gt;
+    &lt;dct:identifier&gt;recalls-per-manufacturer&lt;/dct:identifier&gt;
+    &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/recalls-per-manufacturer&lt;/dcat:accessURL&gt;
+    &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword&gt;Recalls&lt;/dcat:keyword&gt;
+
+    &lt;ods:contact_email&gt;someone@fda.gov&lt;/ods:contact_email&gt;
+
+    &lt;!-- MIME Types accepted --&gt;
+    &lt;dct:format&gt;text/html&lt;/dct:format&gt;
+    &lt;dct:format&gt;image/png&lt;/dct:format&gt;
+
+
+    &lt;!-- Since this chart uses data from many different datasets, it references them here --&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2004&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2005&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2006&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2007&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2008&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2009&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2010&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2011&lt;/ods:dataset&gt;
+    &lt;ods:dataset&gt;https://fda.demo.socrata.com/resource/egg-recalls-2012&lt;/ods:dataset&gt;
+
+
+    &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
+    &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
+&lt;/ods:chart&gt;
+</code></pre>
+
+<h4 id="map">Map</h4>
+
+<p>Range: ods:representation
+Description: This is a map.</p>
+
+<h4 id="deriveddataset">DerivedDataset</h4>
+
+<p>Range: ods:representation
+Description: This is a dataset that is derived from the datasets in the Resource:dataset property.</p>
+
+<h2 id="filesofnote:">Files of note:</h2>
+
+<ul>
+<li>specification.mkd - The detailed spec (work currently in progress)</li>
+<li>notes.mkd - Various notes from our learnings</li>
+<li>examples/ - Examples of catalog entries and listings in different formats</li>
+</ul>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>If you&#8217;d like to contribute, please do! There are many ways to do so:</p>
+
+<ul>
+<li>Join the conversation on the <a href="https://groups.google.com/forum/#!forum/opendatastandards">Google Group for Open Data Standards</a></li>
+<li>Add your own comments to the spec and send us a pull request</li>
+<li>Add issues to the issue tracking system for this project</li>
+</ul>
+
+<h2 id="inspirationsandreferences">Inspirations and References</h2>
+
+<ul>
+<li><a href="http://www.w3.org/TR/vocab-dcat/">DCAT Working Draft</a></li>
+<li><a href="http://www.geojson.org/geojson-spec.html">GeoJSON</a></li>
+<li><a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a></li>
+<li><a href="http://vocab.org/placetime/interval/gregorian/">Vocab.org Gregorian Intervals</a></li>
+<li><a href="http://docs.ckan.org/en/latest/domain-model-resource.html#resource-format-strings">CKAN Data Management System Documentation</a></li>
+<li><a href="http://spec.datacatalogs.org/">CKAN Data Catalog Schema and Protocol v0.1</a></li>
+<li><a href="http://wiki.data.gov/wiki/Draft_API_Catalog_metadata_schema">Data.gov&#8217;s API Catalog proposal</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>This work is all licensed <a href="http://creativecommons.org/licenses/by/3.0/legalcode">Creative Commons By-Attribution 3.0</a></p>
+    </div>
+</body>
+</html>

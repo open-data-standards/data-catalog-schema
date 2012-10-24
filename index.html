@@ -21,10 +21,6 @@
           <h1 id="project_title">Data-catalog-schema</h1>
           <h2 id="project_tagline">Data and API Catalog Schema</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/open-data-standards/data-catalog-schema/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/open-data-standards/data-catalog-schema/tarball/master">Download this project as a tar.gz file</a>
-            </section>
         </header>
     </div>
 
@@ -36,18 +32,20 @@
 
         It is important for data sources to be able to advertise their APIs and Datasets, so catalogs are able to pick them up.  There are two
         important pieces in doing this:
-
-        * Files or endpoints that catalogs or search engines can access to find the appropriate APIs and Datasets. This is similar to
-        how [sitemaps.xml](http://www.sitemaps.org/protocol.html) works for web sites.
-        * A standard format for describing APIs and Datasets, so that callers can gather the appropriate information.  There are
-        a number of formats suggested for this, this standard will start with the [CKAN's Data Catalog Schema and Protocol](http://spec.datacatalogs.org/)
-        modifications on top of [DCAT](http://www.w3.org/TR/vocab-dcat/)
+        <ol>
+            <li>Files or endpoints that catalogs or search engines can access to find the appropriate APIs and Datasets. This is similar to
+                how <a href="http://www.sitemaps.org/protocol.html">sitemaps.xml</a> works for web sites.</li>
+            <li>A standard format for describing APIs and Datasets, so that callers can gather the appropriate information.  There are
+                a number of formats suggested for this, this standard will start with the <a href="http://spec.datacatalogs.org/">CKAN's Data Catalog Schema and Protocol</a>
+                modifications on top of <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a></li>
+        </ol>
 
         <h4>Catalog.xml and Api.xml</h4>
 
         Any data source that provides datasets or Apis can expose them to catalogs and search engines through a few endpoints.
         These enpoints are specifically created so they can be implemented through either simply creating a file or building a more
-        dynamic web service to implement them.
+        dynamic web service to implement them.  This is important, because one goal of the standard is to allow simple data stores to be able to
+        expose APIs or datasets through a catalog.
 
         The available endpoints are:
 
@@ -63,6 +61,11 @@
         In addition, Catalogs MAY want to provide query-able endpoints above and beyond Catalog.xml.  In this case, they are free to
         do so, but the responses should correspond to the same format as below.
         </p>
+
+        <p><strong>Examples</strong></p>
+        <p><a href="apis_examples.html">apis.xml</a>  example</p>
+        <p><a href="catalog_examples.html">catalog.xml</a> example</p>
+
         NOTE:  It would be nice to standardize on the catalog query api as well.  This could be an area of more work.
 
         <h4>The Format</h4>
@@ -70,15 +73,35 @@
         <p>
         We think about the format of the endpoints in two ways, there is the data model and the actual file formats created.
 
-        The data model is based on [DCAT](http://www.w3.org/TR/vocab-dcat/), and the default file format is XML.  The XML format is
+        The data model is based on <a href="http://www.w3.org/TR/vocab-dcat/">DCAT</a>, and the default file format is XML.  The XML format is
         based on RDF, however, some dynamic endpoints MAY decide to offer other formats such as N3 or JSON.
         </p>
 
+        <h4>Differences from DCAT</h4>
+
+        There are a few differences from DCAT proper, both a series of properties we suggest not using, as well as
+        a new set of properties that extend DCAT.
+
+        <ol>
+            <li>Don't use dcat:dataDictionary.  Save for later use,  when it is better defined</li>
+            <li>Don't use dcat:dataQuality.  Save for later use,  when it is better defined</li>
+            <li>Don't use dcat:granularity.  Save for later use,  when it is better defined</li>
+            <li>Don't use dc:references.  Save for later use,  when it is better defined</li>
+        </ol>
+
+
+        In addition the new extensions to DCAT are meant to extend the distributions for being able to more specifically handle cases
+        where an API, Chart or Graph can be created from multiple datasets.
+
+        In addition, more properties are added to a new Representation class that is derived from Distribution.  This is because
+        many datasets, charts, graphs, maps, etc.  Will require their own titles, descriptions, identifiers, etc.
+
+
         <h4>Representation</h4>
-
-
         <p>
         <strong>Range:</strong>  dcat:distribution
+        </p>
+        <p>
         <strong>Description:</strong>  Describes a resource provided by this data service (or catalog).  This is based on a dcat:distribution, however
         extends it with a number of properties to add context, since this element is not showing up as part of a catalog entry.
         </p>
@@ -100,14 +123,17 @@
 
 
         <strong>Clarifications</strong>
-        Every resources MUST have at least one [dcat:format](http://www.w3.org/TR/vocab-dcat/#property--format) property.
+        Every resources MUST have at least one <a href="http://www.w3.org/TR/vocab-dcat/#property--format">dcat:format</a> property.
 
 
         <h4>Api</h4>
 
+        <p>
         <strong>Range:</strong> ods:representation
+        </p>
+        <p>
         <strong>Description:</strong> This is an API that accesses a particular dataset or set of datasets.
-
+        </p>
         <table>
             <thead>
             <tr>
@@ -166,8 +192,12 @@
 
         <h4 id="chart">Chart</h4>
 
-        <p>Range: ods:representation
-            Description: This is an chart.</p>
+        <p>
+            <strong>Range:</strong> ods:representation
+        </p>
+        <p>
+            <strong>Description:</strong> A chart built on top of the associated datasets.
+        </p>
 
         <p><strong>Example</strong></p>
 
@@ -208,21 +238,13 @@
 
         <h4 id="map">Map</h4>
 
-        <p>Range: ods:representation
-            Description: This is a map.</p>
+        <p><strong>Range:</strong> ods:representation</p>
+        <p><strong>Description:</strong> This is a map.</p>
 
         <h4 id="deriveddataset">DerivedDataset</h4>
 
-        <p>Range: ods:representation
-            Description: This is a dataset that is derived from the datasets in the Resource:dataset property.</p>
-
-        <h2 id="filesofnote:">Files of note:</h2>
-
-        <ul>
-            <li>specification.mkd - The detailed spec (work currently in progress)</li>
-            <li>notes.mkd - Various notes from our learnings</li>
-            <li>examples/ - Examples of catalog entries and listings in different formats</li>
-        </ul>
+        <p><strong>Range:</strong> ods:representation</p>
+        <p><strong>Description:</strong> This is a dataset that is derived from the datasets in the Resource:dataset property.</p>
 
         <h2 id="contributing">Contributing</h2>
 
@@ -231,7 +253,7 @@
         <ul>
             <li>Join the conversation on the <a href="https://groups.google.com/forum/#!forum/opendatastandards">Google Group for Open Data Standards</a></li>
             <li>Add your own comments to the spec and send us a pull request</li>
-            <li>Add issues to the issue tracking system for this project</li>
+            <li>Add issues to the <a href="https://github.com/open-data-standards/data-catalog-schema/issues">issue tracking</a> system for this project</li>
         </ul>
 
         <h2 id="inspirationsandreferences">Inspirations and References</h2>
