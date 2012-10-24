@@ -8,10 +8,14 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
+    <link href="stylesheets/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="google-code-prettify/prettify.js"></script>
+
     <title>Data-catalog-schema</title>
+
   </head>
 
-  <body>
+  <body onload="prettyPrint()" >
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
@@ -107,7 +111,7 @@
         </p>
 
         <table>
-            <thead><td>Property</td><td>Type</td><td>Description</td></thead>
+            <thead><tr><td>Property</td><td>Type</td><td>Description</td></tr></thead>
             <tr><td>title</td><td>dct:title</td><td>The name or title for this representation. If not present, implementers should use the name from the related Dataset.</td></tr>
             <tr><td>description</td><td>dct:description</td><td>Text describing this representation.  If not present, implementers should use the description from the related Dataset.</td></tr>
             <tr><td>identifier</td><td>dct:identifier</td><td>Unique identifier for this data representation</td></tr>
@@ -159,9 +163,11 @@
 
         <p><strong>Examples</strong></p>
 
-<pre><code>&lt;ods:api&gt;
+<pre><code class="prettyprint">&lt;ods:api&gt;
     &lt;dct:title&gt;SODA Api for Current Recalls&lt;/dct:title&gt;
-    &lt;dct:description&gt;This is the SODA Api for getting access to all the egg products that are actively being investigated&lt;/dct:description&gt;
+    &lt;dct:description&gt;
+    This is the SODA Api for getting access to all the egg products that are actively being investigated
+    &lt;/dct:description&gt;
     &lt;dct:identifier&gt;ongoing-egg-recalls&lt;/dct:identifier&gt;
     &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls&lt;/dcat:accessURL&gt;
     &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
@@ -204,9 +210,11 @@
         <p>The following example, would surface a chart that is based on several different datasets, for each year of egg recalls. Since,
             this does not neatly fit into the dataset down approach of DCAT, we annotate this with the dataset property from ods:Representation</p>
 
-<pre><code>&lt;ods:chart&gt;
+<pre><code class="prettyprint">&lt;ods:chart&gt;
     &lt;dct:title&gt;Number of recalls per manufacturer (2004 - 2012)&lt;/dct:title&gt;
-    &lt;dct:description&gt;This chart graphs the number of egg product recalls per manufacturer for the years 2004 - 2010&lt;/dct:description&gt;
+    &lt;dct:description&gt;
+    This chart graphs the number of egg product recalls per manufacturer for the years 2004 - 2010
+    &lt;/dct:description&gt;
     &lt;dct:identifier&gt;recalls-per-manufacturer&lt;/dct:identifier&gt;
     &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/recalls-per-manufacturer&lt;/dcat:accessURL&gt;
     &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
