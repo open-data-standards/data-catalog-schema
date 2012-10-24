@@ -13,6 +13,15 @@
     <link href="stylesheets/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="google-code-prettify/prettify.js"></script>
 
+    <style type="text/css">
+        .inner {
+        position: relative;
+        max-width: 900px;
+        padding: 20px 10px;
+        margin: 0 auto;
+        }
+    </style>
+
 </head>
 
 <body onload="prettyPrint()" >
@@ -47,7 +56,9 @@
 
         &lt;ods:api&gt;
             &lt;dct:title&gt;SODA Api for Current Recalls&lt;/dct:title&gt;
-            &lt;dct:description&gt;This is the SODA Api for getting access to all the egg products that are actively being investigated&lt;/dct:description&gt;
+            &lt;dct:description&gt;
+          This is the SODA Api for getting access to all the egg products that are actively being investigated
+          &lt;/dct:description&gt;
             &lt;dct:identifier&gt;ongoing-egg-recalls&lt;/dct:identifier&gt;
             &lt;dcat:accessURL&gt;https://fda.demo.socrata.com/resource/ongoing-egg-recalls&lt;/dcat:accessURL&gt;
             &lt;dcat:keyword&gt;Eggs&lt;/dcat:keyword&gt;
@@ -100,7 +111,6 @@
         &lt;/ods:api&gt;
     &lt;/dcat:Dataset&gt;
 
-
     &lt;dcat:Dataset rdf:about=&quot;https://fda.demo.socrata.com/dataset/Registered-Drug-Dispensaries/xyqn-j4yg&quot;&gt;
         &lt;owl:sameAs rdf:resource=&quot;https://fda.demo.socrata.com/resource/xyqn-j4yg&quot;&gt;&lt;/owl:sameAs&gt;
         &lt;dct:title&gt;Registered Drug Dispensaries&lt;/dct:title&gt;
@@ -141,9 +151,7 @@
             &lt;ods:last_modified&gt;2012-10-10T16:46:00+800&lt;/ods:last_modified&gt;
             &lt;ods:created&gt;2012-10-10T16:46:00+800&lt;/ods:created&gt;
         &lt;/ods:api&gt;
-
     &lt;/dcat:Dataset&gt;
-
 &lt;/rdf&gt;
 </code></pre>
     </section>

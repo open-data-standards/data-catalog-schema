@@ -74,26 +74,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
 }
 
 h2 {
   padding-bottom: 10px;
-  font-size: 32px;
+  font-size: 26px;
   background: url('../images/bg_hr.png') repeat-x bottom;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 h4 {
-  font-size: 21px;
+  font-size: 18px;
 }
 
 h5 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 h6 {
@@ -164,7 +164,7 @@ pre, code {
   background-color: #fff;
 
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  font-size: 14px;
+  font-size: 11px;
 
   border-radius: 2px;
   -moz-border-radius: 2px;
@@ -243,13 +243,16 @@ table {
 th {
   font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
-  background: #373737;
+  background: #939393;
+  border: 1px solid #373737;
   color: #fff;
  }
 
 td {
   padding: 10px;
   border: 1px solid #373737;
+  background: #fff;
+
  }
 
 form {
@@ -272,7 +275,7 @@ Full-Width Styles
 
 .inner {
   position: relative;
-  max-width: 900px;
+  max-width: 700px;
   padding: 20px 10px;
   margin: 0 auto;
 }
